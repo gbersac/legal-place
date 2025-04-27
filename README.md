@@ -1,47 +1,18 @@
-# LegalPlace Take-Home Test Specification
+# Usage
 
-You are a new developer in the Falcon team, and your first job is to add a feature to an old existing piece of code.
+To create a log file for testing: `yarn start`
 
-## System specifications
+To run tests: `yarn test`
 
-Hi and welcome to the team. We are in the future, and Falcon has extended its activities by opening a pharmacy. Your task is to add a new feature to our system so that we can begin distributing a new drug. First an introduction to our system:
+Instruction for this exercise has been moved to https://github.com/gbersac/legal-place/blob/main/INSTRUCTION.md
 
-- All drugs have an `expiresIn` value which denotes the number of days we have until the item expires.
-- All drugs have a `benefit` value which denotes how powerful the drug is.
-- At the end of each day our system lowers both values for every drug
+# Discussion of the proposed solution
 
-But there is more:
+You might find inconistencies in the styling of this code. I decided not to focus on this issue because in real world, I'd install a linter which would deal for this issues for me. Programmers shouldn't care about those issues.
 
-- Once the expiration date has passed, Benefit degrades twice as fast.
-- The Benefit of an item is never negative.
-- "Herbal Tea" actually increases in Benefit the older it gets. Benefit increases twice as fast after the expiration date.
-- The Benefit of an item is never more than 50.
-- "Magic Pill" never expires nor decreases in Benefit.
-- "Fervex", like Herbal Tea, increases in Benefit as its expiration date approaches. Benefit increases by 2 when there are 10 days or less and by 3 when there are 5 days or less but Benefit drops to 0 after the expiration date.
+You'll find different implementation of the solution to this problem:
+- one procedural programming implementation which style is like the one first implemented
+- one procedural programming implementation which style is different but more readable in my opinion
+- one implementation using object oriented design with inheritence
 
-We have recently signed a supplier of "Dafalgan". This requires an update to our system:
-
-- "Dafalgan" degrades in Benefit twice as fast as normal drugs.
-
-## Instructions
-
-- [ ] Create a clone from this repository
-- [ ] Implement the required feature
-- [ ] Push the clone to your own repository when satisfied
-- [ ] Send us the link and tell us approximatively how much time you spent on this assignment
-
-You are encouraged to refactor the existing code before adding your own, as you would do if this was a real task in real life. We strongly recommend that you write tests to help you during this process.
-
-Feel free to make any changes to the `updateBenefitValue` method implementation and add any new code as long as everything still works correctly. However, do not break the public API of the `Drug` and `Pharmacy` classes, as those are used by other pieces of the software (you can add new methods though).
-
-Please commit as frequently as possible to make the review easier.
-
-We expect you to spend no more than 2 hours on this assignment. We value the quality of the end result, not how much time you have spent on it.
-
-## Test
-
-To make sure that you will not break anything in the existing code, we added the result of the simulation in the _output.json_ file. Make sure that your code is able to generate a file with identical content. You can generate a new file by running the following command:
-
-```sh
-yarn start
-```
+Which implementation should be implemented in real world should depend on discussion with other memebers of the team and how code is designed in other parts of the code base.
