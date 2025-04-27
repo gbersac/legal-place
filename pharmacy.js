@@ -4,6 +4,25 @@ export class Drug {
     this.expiresIn = expiresIn;
     this.benefit = benefit;
   }
+
+  isExpired() {
+    return this.expiresIn < 0;
+  }
+
+  fixBenefit() {
+    if (this.benefit < 0) {
+      this.benefit = 0;
+    }
+    if (this.benefit > 50) {
+      this.benefit = 50;
+    }
+  }
+
+  passOneDay() {
+    this.expiresIn -= 1;
+    this.benefit -= this.expiresIn < 0 ? 2 : 1;
+    this.fixBenefit();
+  }
 }
 
 export class Pharmacy {
@@ -79,6 +98,10 @@ export class Pharmacy {
 }
 
 export class PharmacyRefactored extends Pharmacy {
+  constructor(drugs) {
+    super(drugs);
+  }
+
   updateBenefitValue() {
     this.drugs = this.drugs.map((drug) => {
       if (drug.name === "Magic Pill") {
@@ -116,6 +139,75 @@ export class PharmacyRefactored extends Pharmacy {
       return drug;
     });
 
+    return this.drugs;
+  }
+}
+
+export class HerbalTea extends Drug {
+  constructor(expiresIn, benefit) {
+    super("Herbal Tea", expiresIn, benefit);
+  }
+
+  passOneDay() {
+    this.expiresIn -= 1;
+    this.benefit += this.isExpired() ? 2 : 1;
+    super.fixBenefit();
+  }
+}
+
+export class MagicPill extends Drug {
+  constructor(expiresIn, benefit) {
+    super("Magic Pill", expiresIn, benefit);
+  }
+
+  passOneDay() {
+    super.fixBenefit();
+  }
+}
+
+export class Fervex extends Drug {
+  constructor(expiresIn, benefit) {
+    super("Fervex", expiresIn, benefit);
+  }
+
+  passOneDay() {
+    this.expiresIn -= 1;
+    if (this.isExpired()) {
+      this.benefit = 0;
+    } else if (this.expiresIn < 5) {
+      this.benefit += 3;
+    } else if (this.expiresIn < 10) {
+      this.benefit += 2;
+    } else {
+      this.benefit += 1;
+    }
+    super.fixBenefit();
+  }
+}
+
+export class Dafalgan extends Drug {
+  constructor(expiresIn, benefit) {
+    super("Magic Pill", expiresIn, benefit);
+  }
+
+  passOneDay() {
+    this.expiresIn -= 1;
+    this.benefit -= this.isExpired() ? 4 : 2;
+    super.fixBenefit();
+  }
+}
+
+/** Oop stands for Object Oriented Programming */
+export class PharmacyOop extends Pharmacy {
+  constructor(drugs) {
+    super(drugs);
+  }
+
+  updateBenefitValue() {
+    this.drugs = this.drugs.map((drug) => {
+      drug.passOneDay();
+      return drug;
+    });
     return this.drugs;
   }
 }
