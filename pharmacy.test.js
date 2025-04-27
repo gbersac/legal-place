@@ -95,6 +95,22 @@ function testsForPharmacy(createPharmacy, createDrug) {
         expect(updatedDrugs2[0].expiresIn).toEqual(10);
         expect(updatedDrugs2[0].benefit).toEqual(20);
       });
+
+      it("should never decrease the expiresIn and benefit value of Magic Pill even if it is below 0", () => {
+        const drug = createDrug("Magic Pill", 10, -1);
+        const pharmacy = createPharmacy([drug]);
+        const updatedDrugs = pharmacy.updateBenefitValue();
+        expect(updatedDrugs[0].expiresIn).toEqual(10);
+        expect(updatedDrugs[0].benefit).toEqual(-1);
+      });
+
+      it("should never decrease the expiresIn and benefit value of Magic Pill even if it is above 50", () => {
+        const drug = createDrug("Magic Pill", 10, 60);
+        const pharmacy = createPharmacy([drug]);
+        const updatedDrugs = pharmacy.updateBenefitValue();
+        expect(updatedDrugs[0].expiresIn).toEqual(10);
+        expect(updatedDrugs[0].benefit).toEqual(60);
+      });
     });
 
     describe("Fervex", () => {

@@ -12,6 +12,8 @@ I renamed the original file `output.json` to `output-model.json`.
 
 # Discussion of the proposed solution
 
+There's a little ambiguity in this instruction: `"Magic Pill" never expires nor decreases in Benefit.`. I decided to never change benefit for magic pill, even if it is initialized with a value which is not between 0 and 50.
+
 You'll find different implementation of the solution to this problem:
 - one procedural programming implementation which style is like the one first implemented
 - one procedural programming implementation which style is different but more readable in my opinion
