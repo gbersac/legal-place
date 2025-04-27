@@ -1,4 +1,6 @@
 import { Drug, Pharmacy } from "./pharmacy";
+import { createLog } from "./index";
+import fs from "fs";
 
 describe("Pharmacy", () => {
   it("should decrease the benefit and expiresIn", () => {
@@ -26,6 +28,27 @@ describe("Pharmacy", () => {
     const pharmacy = new Pharmacy([drug]);
     const updatedDrugs = pharmacy.updateBenefitValue();
     expect(updatedDrugs[0].benefit).toBeLessThanOrEqual(50);
+  });
+
+  it("should produce the same output as the one stored in output-model.json", () => {
+    // Create a new pharmacy with the same initial drugs as in index.js
+    const drugs = [
+      new Drug("Doliprane", 20, 30),
+      new Drug("Herbal Tea", 10, 5),
+      new Drug("Fervex", 12, 35),
+      new Drug("Magic Pill", 15, 40),
+    ];
+    const pharmacy = new Pharmacy(drugs);
+
+    // Generate the log using the createLog function
+    const generatedLog = createLog(pharmacy);
+
+    // Load the model output from the file
+    const fileContent = fs.readFileSync("output-model.json", "utf8");
+    const modelOutput = JSON.parse(fileContent);
+
+    // Compare the generated log with the model output
+    expect(generatedLog).toEqual(modelOutput.result);
   });
 
   describe("Herbal Tea", () => {

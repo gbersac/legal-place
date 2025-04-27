@@ -8,6 +8,8 @@ To run the linter: `yarn lint`
 
 Instruction for this exercise has been moved to https://github.com/gbersac/legal-place/blob/main/INSTRUCTION.md
 
+I renamed the original file `output.json` to `output-model.json`.
+
 # Discussion of the proposed solution
 
 You'll find different implementation of the solution to this problem:
