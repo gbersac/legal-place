@@ -77,3 +77,45 @@ export class Pharmacy {
     return this.drugs;
   }
 }
+
+export class PharmacyRefactored extends Pharmacy {
+  updateBenefitValue() {
+    this.drugs = this.drugs.map((drug) => {
+      if (drug.name === "Magic Pill") {
+        return drug;
+      }
+
+      drug.expiresIn -= 1;
+      const isExpired = drug.expiresIn < 0;
+      if (drug.name === "Herbal Tea") {
+        drug.benefit += isExpired ? 2 : 1;
+      } else if (drug.name === "Fervex") {
+        if (isExpired) {
+          drug.benefit = 0;
+        } else if (drug.expiresIn < 5) {
+          drug.benefit += 3;
+        } else if (drug.expiresIn < 10) {
+          drug.benefit += 2;
+        } else {
+          drug.benefit += 1;
+        }
+      } else if (drug.name === "Dafalgan") {
+        drug.benefit -= isExpired ? 4 : 2;
+      } else {
+        drug.benefit -= isExpired ? 2 : 1;
+      }
+
+      // guard checks
+      if (drug.benefit < 0) {
+        drug.benefit = 0;
+      }
+      if (drug.benefit > 50) {
+        drug.benefit = 50;
+      }
+
+      return drug;
+    });
+
+    return this.drugs;
+  }
+}
