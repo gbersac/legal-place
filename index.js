@@ -1,4 +1,5 @@
 import { Drug, Pharmacy } from "./pharmacy";
+import { createLog } from "./createLog";
 
 import fs from "fs";
 
@@ -9,14 +10,6 @@ const drugs = [
   new Drug("Magic Pill", 15, 40),
 ];
 const pharmacy = new Pharmacy(drugs);
-
-export function createLog(pharmacy) {
-  const log = [];
-  for (let elapsedDays = 0; elapsedDays < 30; elapsedDays++) {
-    log.push(JSON.parse(JSON.stringify(pharmacy.updateBenefitValue())));
-  }
-  return log;
-}
 
 const log = createLog(pharmacy);
 
